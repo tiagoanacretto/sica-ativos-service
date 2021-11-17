@@ -54,4 +54,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Push on Docker Hub
-        run: docker push tiagoanacretto/sica-ativos-service
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/sica-ativos-service
