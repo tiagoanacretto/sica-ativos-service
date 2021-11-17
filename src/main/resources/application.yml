@@ -5,7 +5,7 @@ springdoc:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localh3ost:5434/ativos-service
+    url: jdbc:postgresql://localhost:5434/ativos-service
     username: postgres
     password: 123
     hikari:

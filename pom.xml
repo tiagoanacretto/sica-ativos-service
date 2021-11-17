@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.sica</groupId>
-    <artifactId>ativos-service</artifactId>
+    <artifactId>sica-ativos-service</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>ativos-service</name>
+    <name>sica-ativos-service</name>
     <description>Backend do módulo Cadastro de Ativos do SICA</description>
 
     <parent>
@@ -111,8 +111,8 @@
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>poc-sica/${project.artifactId}:${project.version}</name>
-                            <name>poc-sica/${project.artifactId}</name>
+                            <name>tiagoanacretto/${project.artifactId}:${project.version}</name>
+                            <name>tiagoanacretto/${project.artifactId}</name>
                             <build>
                                 <dockerFileDir>${project.basedir}/dockerfile</dockerFileDir>
                             </build>
