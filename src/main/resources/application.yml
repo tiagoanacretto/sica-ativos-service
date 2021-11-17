@@ -1,0 +1,21 @@
+# Project Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/ativos-service
+    username: postgres
+    password: 123
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      jadira:
+        usertype:
+          autoRegisterUserTypes: true
