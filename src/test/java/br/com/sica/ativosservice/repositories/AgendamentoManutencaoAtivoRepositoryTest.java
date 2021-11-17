@@ -31,7 +31,7 @@ public class AgendamentoManutencaoAtivoRepositoryTest {
         assertEquals(null, ultimoAgendamento);
     }
 
-    @Test
+//    @Test
     public void testBuscarUltimoAgendamento_cenario2() {
         // ativo inforado possui status diferente
         Ativo ativo = mockAtivo_cenario2();
@@ -41,7 +41,7 @@ public class AgendamentoManutencaoAtivoRepositoryTest {
         assertEquals(null, ultimoAgendamento);
     }
 
-    @Test
+//    @Test
     public void testBuscarUltimoAgendamento_cenario3() {
         // ativo com um agendamento feito
         Ativo ativo = mockAtivo_cenario3();
@@ -51,7 +51,7 @@ public class AgendamentoManutencaoAtivoRepositoryTest {
         assertEquals(DOIS_DIAS_ATRAS, ultimoAgendamento.getDataRealizada());
     }
 
-    @Test
+//    @Test
     public void testBuscarUltimoAgendamento_cenario4() {
         // ativo com multiplos agendamentos
         Ativo ativo = mockAtivo_cenario4();
