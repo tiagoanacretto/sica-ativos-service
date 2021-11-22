@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value="authorization", url="http://localhost:8081/auth")
+@FeignClient(value="authorization", url="${auth.url}")
 public interface AuthorizationService {
 
     @RequestMapping(method = RequestMethod.GET,
