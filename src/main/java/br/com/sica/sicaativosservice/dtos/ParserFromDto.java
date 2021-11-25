@@ -27,7 +27,6 @@ public class ParserFromDto {
         AgendamentoManutencaoAtivo agendamento = new AgendamentoManutencaoAtivo();
         agendamento.setId(agendamentoDto.getId());
         agendamento.setDataAgendada(FormatUtils.stringToLocalDate(agendamentoDto.getDataAgendada()));
-        agendamento.setDataRealizada(FormatUtils.stringToDateTime(agendamentoDto.getDataRealizada()));
         agendamento.setStatus(agendamentoDto.getStatus());
         agendamento.setObservacao(agendamentoDto.getObservacao());
         return agendamento;
@@ -41,8 +40,7 @@ public class ParserFromDto {
         ativo.setCategoria(ativoDto.getCategoria());
         ativo.setIntervaloManutencao(ativoDto.getIntervaloManutencao());
         parseAgendamentos(ativoDto.getAgendamentos(), ativo);
-        ativo.setValorInicial(ativoDto.getValorInicial());
-        ativo.setValorAtual(ativoDto.getValorAtual());
+        ativo.setValorCompra(ativoDto.getValorCompra());
         parseParametros(ativoDto.getParametros(), ativo);
         ativo.setAtivo(ativoDto.getAtivo());
         ativo.setDataCadastro(FormatUtils.stringToDateTime(ativoDto.getDataCadastro()));

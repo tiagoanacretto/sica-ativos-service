@@ -28,7 +28,6 @@ public class FromObject {
         AgendamentoManutencaoAtivoDto agendamentoDto = new AgendamentoManutencaoAtivoDto();
         agendamentoDto.setId(agendamento.getId());
         agendamentoDto.setDataAgendada(FormatUtils.localDateToString(agendamento.getDataAgendada()));
-        agendamentoDto.setDataRealizada(FormatUtils.dateTimeToString(agendamento.getDataRealizada()));
         agendamentoDto.setStatus(agendamento.getStatus());
         agendamentoDto.setObservacao(agendamento.getObservacao());
         return agendamentoDto;
@@ -42,8 +41,7 @@ public class FromObject {
         ativoDto.setCategoria(ativo.getCategoria());
         ativoDto.setIntervaloManutencao(ativo.getIntervaloManutencao());
         ativoDto.setAgendamentos(fromAgendamentos(ativo.getAgendamentos()));
-        ativoDto.setValorInicial(ativo.getValorInicial());
-        ativoDto.setValorAtual(ativo.getValorAtual());
+        ativoDto.setValorCompra(ativo.getValorCompra());
         ativoDto.setParametros(fromParametros(ativo.getParametros()));
         ativoDto.setAtivo(ativo.getAtivo());
         ativoDto.setDataCadastro(FormatUtils.dateTimeToString(ativo.getDataCadastro()));

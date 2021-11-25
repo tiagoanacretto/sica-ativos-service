@@ -1,6 +1,6 @@
 package br.com.sica.sicaativosservice.models;
 
-import br.com.sica.sicaativosservice.enums.StatusManutencao;
+import br.com.sica.sicaativosservice.enums.StatusAgendamento;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
@@ -25,12 +25,9 @@ public class AgendamentoManutencaoAtivo {
     @NotBlank
     private LocalDate dataAgendada;
 
-    @Column(name = "data_realizada")
-    private DateTime dataRealizada;
-
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private StatusManutencao status;
+    private StatusAgendamento status;
 
     @Column(length = 250)
     @Size(max = 250)
@@ -60,19 +57,11 @@ public class AgendamentoManutencaoAtivo {
         this.dataAgendada = dataAgendada;
     }
 
-    public DateTime getDataRealizada() {
-        return dataRealizada;
-    }
-
-    public void setDataRealizada(DateTime dataRealizada) {
-        this.dataRealizada = dataRealizada;
-    }
-
-    public StatusManutencao getStatus() {
+    public StatusAgendamento getStatus() {
         return status;
     }
 
-    public void setStatus(StatusManutencao status) {
+    public void setStatus(StatusAgendamento status) {
         this.status = status;
     }
 

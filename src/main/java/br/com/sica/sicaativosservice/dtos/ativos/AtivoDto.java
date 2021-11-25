@@ -20,9 +20,7 @@ public class AtivoDto {
 
     private List<AgendamentoManutencaoAtivoDto> agendamentos;
 
-    private BigDecimal valorInicial;
-
-    private BigDecimal valorAtual;
+    private BigDecimal valorCompra;
 
     private List<ParametroAtivoDto> parametros;
 
@@ -78,20 +76,12 @@ public class AtivoDto {
         this.agendamentos = agendamentos;
     }
 
-    public BigDecimal getValorInicial() {
-        return valorInicial;
+    public BigDecimal getValorCompra() {
+        return valorCompra;
     }
 
-    public void setValorInicial(BigDecimal valorInicial) {
-        this.valorInicial = valorInicial;
-    }
-
-    public BigDecimal getValorAtual() {
-        return valorAtual;
-    }
-
-    public void setValorAtual(BigDecimal valorAtual) {
-        this.valorAtual = valorAtual;
+    public void setValorCompra(BigDecimal valorCompra) {
+        this.valorCompra = valorCompra;
     }
 
     public List<ParametroAtivoDto> getParametros() {

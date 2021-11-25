@@ -1,8 +1,7 @@
 package br.com.sica.sicaativosservice.enums;
 
-public enum StatusManutencao {
+public enum StatusAgendamento {
     AGENDADA,
-    EM_EXECUCAO,
     REALIZADA,
     CANCELADA;
 }

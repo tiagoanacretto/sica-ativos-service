@@ -9,7 +9,7 @@ public class FormatUtils {
 
     static final String DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
     static final String DATE_FORMAT = "dd/MM/yyyy";
-    static final String NAO_DISPONIVEL = "N/A";
+    static final String NAO_DISPONIVEL = "N/D";
 
     private FormatUtils() {}
 

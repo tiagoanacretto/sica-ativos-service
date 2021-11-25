@@ -1,6 +1,7 @@
 package br.com.sica.sicaativosservice.models;
 
 import br.com.sica.sicaativosservice.enums.CategoriaAtivo;
+import br.com.sica.sicaativosservice.enums.CondicaoManutencao;
 import br.com.sica.sicaativosservice.enums.IntervaloManutencao;
 
 import javax.persistence.*;
@@ -37,20 +38,22 @@ public class Ativo implements Serializable {
     @Enumerated(EnumType.STRING)
     private CategoriaAtivo categoria;
 
-    @Column(name = "intervalo_manutencao")
+    @Column(name = "intervalo_manutencao", nullable = false)
+    @NotBlank
     @Enumerated(EnumType.STRING)
     private IntervaloManutencao intervaloManutencao;
 
-    @OneToMany(mappedBy = "ativo", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "status_manutencao", nullable = false)
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private CondicaoManutencao statusManutencao;
+
+    @OneToMany(mappedBy = "ativo", fetch = FetchType.LAZY)
     private List<AgendamentoManutencaoAtivo> agendamentos;
 
-    @Column(name = "valor_inicial")
+    @Column(name = "valor_compra")
     @Digits(integer=9, fraction=2)
-    private BigDecimal valorInicial;
-
-    @Column(name = "valor_atual")
-    @Digits(integer=9, fraction=2)
-    private BigDecimal valorAtual;
+    private BigDecimal valorCompra;
 
     // para carro: marca, chevrolet / modelo, s10
     // para investimento: banco, itau / tipo, CDB
@@ -103,6 +106,14 @@ public class Ativo implements Serializable {
         this.intervaloManutencao = intervaloManutencao;
     }
 
+    public CondicaoManutencao getStatusManutencao() {
+        return statusManutencao;
+    }
+
+    public void setStatusManutencao(CondicaoManutencao statusManutencao) {
+        this.statusManutencao = statusManutencao;
+    }
+
     public List<AgendamentoManutencaoAtivo> getAgendamentos() {
         if (agendamentos == null) {
             agendamentos = new ArrayList<>();
@@ -119,20 +130,12 @@ public class Ativo implements Serializable {
         agendamento.setAtivo(this);
     }
 
-    public BigDecimal getValorInicial() {
-        return valorInicial;
+    public BigDecimal getValorCompra() {
+        return valorCompra;
     }
 
-    public void setValorInicial(BigDecimal valorInicial) {
-        this.valorInicial = valorInicial;
-    }
-
-    public BigDecimal getValorAtual() {
-        return valorAtual;
-    }
-
-    public void setValorAtual(BigDecimal valorAtual) {
-        this.valorAtual = valorAtual;
+    public void setValorCompra(BigDecimal valorCompra) {
+        this.valorCompra = valorCompra;
     }
 
     public List<ParametroAtivo> getParametros() {

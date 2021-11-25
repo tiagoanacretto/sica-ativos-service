@@ -9,8 +9,8 @@ import java.io.Serializable;
 
 // Mapeia os intervalos de manutencao disponiveis pela engenharia
 @Entity
-@Table(name = "agenda_manutencao")
-public class AgendaManutencao implements Serializable {
+@Table(name = "disponibilidade_manutencao")
+public class DisponibilidadeManutencao implements Serializable {
 
     private static final long serialVersionUID = 418352681330877268L;
 
@@ -27,15 +27,15 @@ public class AgendaManutencao implements Serializable {
     @Enumerated(EnumType.STRING)
     private CategoriaAtivo categoria;
 
-    // usado com INTERVALO_DATA
-    @Column(name = "data_inicio")
-    private LocalDate dataInicio;
+    // usado com INTERVALO_DIAS
+    @Column(name = "dia_inicio")
+    private Integer diaInicio;
 
-    // usado com INTERVALO_DATA
-    @Column(name = "data_fim")
-    private LocalDate dataFim;
+    // usado com INTERVALO_DIAS
+    @Column(name = "dia_fim")
+    private Integer diaFim;
 
-    // 1-7 se DIA_SEMANA ou 1-31 se DIA_MES
+    // 1-7 se DIA_SEMANA, onde 1 e domingo, ou 1-31 se DIA_MES
     @Column(name = "dia_especifico")
     private Integer diaEspecifico;
 
@@ -63,20 +63,20 @@ public class AgendaManutencao implements Serializable {
         this.categoria = categoria;
     }
 
-    public LocalDate getDataInicio() {
-        return dataInicio;
+    public Integer getDiaInicio() {
+        return diaInicio;
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setDiaInicio(Integer diaInicio) {
+        this.diaInicio = diaInicio;
     }
 
-    public LocalDate getDataFim() {
-        return dataFim;
+    public Integer getDiaFim() {
+        return diaFim;
     }
 
-    public void setDataFim(LocalDate dataFim) {
-        this.dataFim = dataFim;
+    public void setDiaFim(Integer diaFim) {
+        this.diaFim = diaFim;
     }
 
     public Integer getDiaEspecifico() {

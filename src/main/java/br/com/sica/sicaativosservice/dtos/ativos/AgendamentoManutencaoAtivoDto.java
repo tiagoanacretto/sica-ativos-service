@@ -1,6 +1,6 @@
 package br.com.sica.sicaativosservice.dtos.ativos;
 
-import br.com.sica.sicaativosservice.enums.StatusManutencao;
+import br.com.sica.sicaativosservice.enums.StatusAgendamento;
 
 public class AgendamentoManutencaoAtivoDto {
 
@@ -8,19 +8,16 @@ public class AgendamentoManutencaoAtivoDto {
 
     private String dataAgendada;
 
-    private String dataRealizada;
-
-    private StatusManutencao status;
+    private StatusAgendamento status;
 
     private String observacao;
 
     public AgendamentoManutencaoAtivoDto() {
     }
 
-    public AgendamentoManutencaoAtivoDto(Long id, String dataAgendada, String dataRealizada, StatusManutencao status, String observacao) {
+    public AgendamentoManutencaoAtivoDto(Long id, String dataAgendada, StatusAgendamento status, String observacao) {
         this.id = id;
         this.dataAgendada = dataAgendada;
-        this.dataRealizada = dataRealizada;
         this.status = status;
         this.observacao = observacao;
     }
@@ -41,19 +38,11 @@ public class AgendamentoManutencaoAtivoDto {
         this.dataAgendada = dataAgendada;
     }
 
-    public String getDataRealizada() {
-        return dataRealizada;
-    }
-
-    public void setDataRealizada(String dataRealizada) {
-        this.dataRealizada = dataRealizada;
-    }
-
-    public StatusManutencao getStatus() {
+    public StatusAgendamento getStatus() {
         return status;
     }
 
-    public void setStatus(StatusManutencao status) {
+    public void setStatus(StatusAgendamento status) {
         this.status = status;
     }
 

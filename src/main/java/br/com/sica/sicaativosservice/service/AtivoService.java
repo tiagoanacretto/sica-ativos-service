@@ -5,11 +5,13 @@ import br.com.sica.sicaativosservice.dtos.ParserFromDto;
 import br.com.sica.sicaativosservice.dtos.ativos.AtivoDto;
 import br.com.sica.sicaativosservice.dtos.ativos.ListagemAtivo;
 import br.com.sica.sicaativosservice.enums.CondicaoManutencao;
-import br.com.sica.sicaativosservice.enums.StatusManutencao;
+import br.com.sica.sicaativosservice.enums.StatusAgendamento;
 import br.com.sica.sicaativosservice.models.AgendamentoManutencaoAtivo;
 import br.com.sica.sicaativosservice.models.Ativo;
+import br.com.sica.sicaativosservice.models.Manutencao;
 import br.com.sica.sicaativosservice.repositories.AgendamentoManutencaoAtivoRepository;
 import br.com.sica.sicaativosservice.repositories.AtivoRepository;
+import br.com.sica.sicaativosservice.repositories.ManutencaoRepository;
 import br.com.sica.sicaativosservice.utils.FormatUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -28,6 +30,9 @@ public class AtivoService {
 
     @Autowired
     private AtivoRepository ativoRepository;
+
+    @Autowired
+    private ManutencaoRepository manutencaoRepository;
 
     @Autowired
     private AgendamentoManutencaoAtivoRepository agendamentoManutencaoAtivoRepository;
@@ -49,8 +54,8 @@ public class AtivoService {
             ListagemAtivo listagemAtivo = criarListagemAtivo(ativo);
             DateTime ultimaManutencao = pesquisarUltimaManutencao(ativo.getId());
             listagemAtivo.setUltimaManutencao(FormatUtils.dateTimeToString(ultimaManutencao));
+
             listagemAtivo.setProximaManutencao(FormatUtils.localDateToString(pesquisarProximaManutencao(ativo.getId())));
-            listagemAtivo.setCondicao(condicaoManutencaoService.calcularCondicaoManutencao(ativo, ultimaManutencao));
             listagemAtivos.add(listagemAtivo);
         });
         return listagemAtivos;
@@ -107,15 +112,15 @@ public class AtivoService {
     }
 
     private DateTime pesquisarUltimaManutencao(Long ativoId) {
-        AgendamentoManutencaoAtivo agendamentoManutencaoAtivo = agendamentoManutencaoAtivoRepository.findTopByAtivoIdAndStatusOrderByDataRealizadaDesc(ativoId, StatusManutencao.REALIZADA);
-        if (agendamentoManutencaoAtivo != null) {
-            return agendamentoManutencaoAtivo.getDataRealizada();
+        Manutencao manutencao = manutencaoRepository.findTopByAtivoIdOrderByDataRealizadaDesc(ativoId);
+        if (manutencao != null) {
+            return manutencao.getDataRealizada();
         }
         return null;
     }
 
     private LocalDate pesquisarProximaManutencao(Long ativoId) {
-        AgendamentoManutencaoAtivo agendamentoManutencaoAtivo = agendamentoManutencaoAtivoRepository.findTopByAtivoIdAndStatusOrderByDataAgendadaAsc(ativoId, StatusManutencao.AGENDADA);
+        AgendamentoManutencaoAtivo agendamentoManutencaoAtivo = agendamentoManutencaoAtivoRepository.findTopByAtivoIdAndStatusOrderByDataAgendadaAsc(ativoId, StatusAgendamento.AGENDADA);
         if (agendamentoManutencaoAtivo != null) {
             return agendamentoManutencaoAtivo.getDataAgendada();
         }
@@ -136,6 +141,7 @@ public class AtivoService {
         listagemAtivo.setCodigo(ativo.getCodigo());
         listagemAtivo.setDescricao(ativo.getDescricao());
         listagemAtivo.setCategoria(ativo.getCategoria().getDescricao());
+        listagemAtivo.setCondicao(ativo.getStatusManutencao());
         return listagemAtivo;
     }
 }
