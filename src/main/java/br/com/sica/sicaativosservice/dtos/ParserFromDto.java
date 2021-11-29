@@ -14,48 +14,55 @@ public class ParserFromDto {
 
     private ParserFromDto() {}
 
-    public static ParametroAtivo parse(ParametroAtivoDto parametroAtivoDto) {
+    public static ParametroAtivo parse(ParametroAtivoDto parametroAtivoDto, boolean inclusao) {
         ParametroAtivo parametroAtivo = new ParametroAtivo();
-        parametroAtivo.setId(parametroAtivoDto.getId());
+        if (!inclusao) {
+            parametroAtivo.setId(parametroAtivoDto.getId());
+        }
         parametroAtivo.setNome(parametroAtivoDto.getNome());
         parametroAtivo.setDescricao(parametroAtivoDto.getDescricao());
         parametroAtivo.setValor(parametroAtivoDto.getValor());
         return parametroAtivo;
     }
 
-    public static AgendamentoManutencaoAtivo parse(AgendamentoManutencaoAtivoDto agendamentoDto) {
+    public static AgendamentoManutencaoAtivo parse(AgendamentoManutencaoAtivoDto agendamentoDto, boolean inclusao) {
         AgendamentoManutencaoAtivo agendamento = new AgendamentoManutencaoAtivo();
-        agendamento.setId(agendamentoDto.getId());
+        if (!inclusao) {
+            agendamento.setId(agendamentoDto.getId());
+        }
         agendamento.setDataAgendada(FormatUtils.stringToLocalDate(agendamentoDto.getDataAgendada()));
         agendamento.setStatus(agendamentoDto.getStatus());
         agendamento.setObservacao(agendamentoDto.getObservacao());
         return agendamento;
     }
 
-    public static Ativo parse(AtivoDto ativoDto) {
+    public static Ativo parse(AtivoDto ativoDto, boolean inclusao) {
         Ativo ativo = new Ativo();
-        ativo.setId(ativoDto.getId());
+        if (!inclusao) {
+            ativo.setId(ativoDto.getId());
+        }
         ativo.setCodigo(ativoDto.getCodigo());
         ativo.setDescricao(ativoDto.getDescricao());
         ativo.setCategoria(ativoDto.getCategoria());
+        ativo.setStatusManutencao(ativoDto.getStatusManutencao());
         ativo.setIntervaloManutencao(ativoDto.getIntervaloManutencao());
-        parseAgendamentos(ativoDto.getAgendamentos(), ativo);
+        parseAgendamentos(ativoDto.getAgendamentos(), ativo, inclusao);
         ativo.setValorCompra(ativoDto.getValorCompra());
-        parseParametros(ativoDto.getParametros(), ativo);
+        parseParametros(ativoDto.getParametros(), ativo, inclusao);
         ativo.setAtivo(ativoDto.getAtivo());
         ativo.setDataCadastro(FormatUtils.stringToDateTime(ativoDto.getDataCadastro()));
         return ativo;
     }
 
-    private static void parseAgendamentos(List<AgendamentoManutencaoAtivoDto> agendamentosDto, Ativo ativo) {
+    private static void parseAgendamentos(List<AgendamentoManutencaoAtivoDto> agendamentosDto, Ativo ativo, boolean inclusao) {
         if (agendamentosDto != null) {
-            agendamentosDto.parallelStream().forEach(dto -> ativo.addAgendamento(parse(dto)));
+            agendamentosDto.parallelStream().forEach(dto -> ativo.addAgendamento(parse(dto, inclusao)));
         }
     }
 
-    private static void parseParametros(List<ParametroAtivoDto> parametrosDto, Ativo ativo) {
+    private static void parseParametros(List<ParametroAtivoDto> parametrosDto, Ativo ativo, boolean inclusao) {
         if (parametrosDto != null) {
-            parametrosDto.parallelStream().forEach(dto -> ativo.addParametros(parse(dto)));
+            parametrosDto.parallelStream().forEach(dto -> ativo.addParametros(parse(dto, inclusao)));
         }
     }
 }

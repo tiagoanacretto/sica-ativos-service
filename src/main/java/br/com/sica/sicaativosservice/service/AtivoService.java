@@ -62,9 +62,10 @@ public class AtivoService {
     }
 
     public AtivoDto salvar(AtivoDto ativoDto) {
-        Ativo ativo = ParserFromDto.parse(ativoDto);
+        Ativo ativo = ParserFromDto.parse(ativoDto, true);
         ativo.setDataCadastro(DateTime.now());
         ativo.setAtivo(true);
+        ativo.setStatusManutencao(CondicaoManutencao.EM_DIA);
         ativo = ativoRepository.save(ativo);
         LOGGER.info("Ativo {} criado com sucesso", ativo.getId());
         return FromObject.from(ativo);
@@ -96,7 +97,7 @@ public class AtivoService {
         Ativo ativoOrigem = ativoRepository.findById(id).orElse(null);
         if (ativoOrigem != null) {
             LOGGER.info("Alterando ativo {}", id);
-            Ativo ativo = ParserFromDto.parse(ativoDto);
+            Ativo ativo = ParserFromDto.parse(ativoDto, false);
 
             // Voltar dados que nao deve ser editados
             ativo.setId(ativoOrigem.getId());

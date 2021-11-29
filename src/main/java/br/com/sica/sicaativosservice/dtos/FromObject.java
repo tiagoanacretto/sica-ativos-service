@@ -39,6 +39,7 @@ public class FromObject {
         ativoDto.setCodigo(ativo.getCodigo());
         ativoDto.setDescricao(ativo.getDescricao());
         ativoDto.setCategoria(ativo.getCategoria());
+        ativoDto.setStatusManutencao(ativo.getStatusManutencao());
         ativoDto.setIntervaloManutencao(ativo.getIntervaloManutencao());
         ativoDto.setAgendamentos(fromAgendamentos(ativo.getAgendamentos()));
         ativoDto.setValorCompra(ativo.getValorCompra());

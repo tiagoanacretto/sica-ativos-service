@@ -1,6 +1,7 @@
 package br.com.sica.sicaativosservice.dtos.ativos;
 
 import br.com.sica.sicaativosservice.enums.CategoriaAtivo;
+import br.com.sica.sicaativosservice.enums.CondicaoManutencao;
 import br.com.sica.sicaativosservice.enums.IntervaloManutencao;
 
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ public class AtivoDto {
     private CategoriaAtivo categoria;
 
     private IntervaloManutencao intervaloManutencao;
+
+    private CondicaoManutencao statusManutencao;
 
     private List<AgendamentoManutencaoAtivoDto> agendamentos;
 
@@ -66,6 +69,14 @@ public class AtivoDto {
 
     public void setIntervaloManutencao(IntervaloManutencao intervaloManutencao) {
         this.intervaloManutencao = intervaloManutencao;
+    }
+
+    public CondicaoManutencao getStatusManutencao() {
+        return statusManutencao;
+    }
+
+    public void setStatusManutencao(CondicaoManutencao statusManutencao) {
+        this.statusManutencao = statusManutencao;
     }
 
     public List<AgendamentoManutencaoAtivoDto> getAgendamentos() {
