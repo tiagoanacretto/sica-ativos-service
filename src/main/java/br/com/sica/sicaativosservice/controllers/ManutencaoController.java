@@ -1,7 +1,6 @@
 package br.com.sica.sicaativosservice.controllers;
 
-import br.com.sica.sicaativosservice.dtos.ativos.AtivoDto;
-import br.com.sica.sicaativosservice.dtos.ativos.ListagemAtivo;
+import br.com.sica.sicaativosservice.dtos.manutencoes.ListagemManutencao;
 import br.com.sica.sicaativosservice.dtos.manutencoes.ManutencaoDto;
 import br.com.sica.sicaativosservice.service.ManutencaoService;
 import br.com.sica.sicaativosservice.validators.RequestAuthValidator;
@@ -31,48 +30,48 @@ public class ManutencaoController {
         return new ResponseEntity<>(manutencaoService.listarManutencoesDisponiveis(categoria), HttpStatus.OK);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ManutencaoDto>> listarTodasManutencoes() {
-//        LOGGER.info("Chamando listagem de manutencoes...");
-//        return new ResponseEntity<>(manutencaoService.listarTodas(), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ManutencaoDto> buscarManutencaoPorId(@PathVariable Long id) {
-//        LOGGER.info("Buscando manutencao {}...", id);
-//        ManutencaoDto manutencao = manutencaoService.buscarPorId(id);
-//        if (manutencao == null) {
-//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//        } else {
-//            return new ResponseEntity<>(manutencao, HttpStatus.OK);
-//        }
-//    }
-//
-//    @PostMapping
-//    public ResponseEntity<ManutencaoDto> salvarManutencao(@RequestBody ManutencaoDto ativo) {
-//        LOGGER.info("Chamando salvar manutencao...");
-//        return new ResponseEntity<>(manutencaoService.salvar(ativo), HttpStatus.CREATED);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ManutencaoDto> alterarAtivo(@RequestBody ManutencaoDto ativo, @PathVariable Long id) {
-//        LOGGER.info("Alterando ativo {}...", id);
-//        AtivoDto ativoAlterado = manutencaoService.alterarAtivo(ativo, id);
-//        if (ativoAlterado == null) {
-//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//        } else {
-//            return new ResponseEntity<>(ativoAlterado, HttpStatus.OK);
-//        }
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity apagarManutencao(@PathVariable Long id) {
-//        LOGGER.info("Apagando ativo {}...", id);
-//        boolean confirmacao = manutencaoService.apagarAtivo(id);
-//        if (confirmacao) {
-//            return new ResponseEntity<>(null, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @GetMapping
+    public ResponseEntity<List<ListagemManutencao>> listarTodasManutencoes() {
+        LOGGER.info("Chamando listagem de manutencoes...");
+        return new ResponseEntity<>(manutencaoService.listarTodas(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ManutencaoDto> buscarManutencaoPorId(@PathVariable Long id) {
+        LOGGER.info("Buscando manutencao {}...", id);
+        ManutencaoDto manutencao = manutencaoService.buscarPorId(id);
+        if (manutencao == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(manutencao, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<ManutencaoDto> salvarManutencao(@RequestBody ManutencaoDto ativo) {
+        LOGGER.info("Chamando salvar manutencao...");
+        return new ResponseEntity<>(manutencaoService.salvar(ativo), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ManutencaoDto> alterar(@RequestBody ManutencaoDto manutencao, @PathVariable Long id) {
+        LOGGER.info("Alterando manutencao {}...", id);
+        ManutencaoDto manutencaoAlterada = manutencaoService.alterar(manutencao, id);
+        if (manutencaoAlterada == null) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(manutencaoAlterada, HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity apagarManutencao(@PathVariable Long id) {
+        LOGGER.info("Apagando manutencao {}...", id);
+        boolean confirmacao = manutencaoService.apagar(id);
+        if (confirmacao) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

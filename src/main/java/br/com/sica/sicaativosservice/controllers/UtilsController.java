@@ -12,6 +12,7 @@ import br.com.sica.sicaativosservice.repositories.AtivoRepository;
 import br.com.sica.sicaativosservice.repositories.DisponibilidadeManutencaoRepository;
 import br.com.sica.sicaativosservice.repositories.ManutencaoRepository;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,14 +132,14 @@ public class UtilsController {
 
     private void popularDisponibilidadeManutencao() {
         // maquina as segundas e quartas
-        criarDisponibilidadeManutencao(CategoriaAtivo.MAQUINA, TipoAgendaManutencao.DIA_SEMANA, null ,null, 2);
-        criarDisponibilidadeManutencao(CategoriaAtivo.MAQUINA, TipoAgendaManutencao.DIA_SEMANA, null ,null, 4);
+        criarDisponibilidadeManutencao(CategoriaAtivo.MAQUINA, TipoAgendaManutencao.DIA_SEMANA, null ,null, DateTimeConstants.MONDAY);
+        criarDisponibilidadeManutencao(CategoriaAtivo.MAQUINA, TipoAgendaManutencao.DIA_SEMANA, null ,null, DateTimeConstants.WEDNESDAY);
         // equipamento de 15 a 31 de todo mes
         criarDisponibilidadeManutencao(CategoriaAtivo.EQUIPAMENTO, TipoAgendaManutencao.INTERVALO_DIAS, 15 ,31, null);
         // imovel todo dia 10
         criarDisponibilidadeManutencao(CategoriaAtivo.IMOVEL, TipoAgendaManutencao.DIA_MES, null ,null, 10);
         // veiculos as quintas
-        criarDisponibilidadeManutencao(CategoriaAtivo.VEICULO, TipoAgendaManutencao.DIA_SEMANA, null ,null, 5);
+        criarDisponibilidadeManutencao(CategoriaAtivo.VEICULO, TipoAgendaManutencao.DIA_SEMANA, null ,null, DateTimeConstants.THURSDAY);
     }
 
     private DisponibilidadeManutencao criarDisponibilidadeManutencao(CategoriaAtivo categoria,

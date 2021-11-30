@@ -1,40 +1,67 @@
 package br.com.sica.sicaativosservice.service;
 
+import br.com.sica.sicaativosservice.dtos.FromObject;
+import br.com.sica.sicaativosservice.dtos.ParserFromDto;
+import br.com.sica.sicaativosservice.dtos.manutencoes.ListagemManutencao;
 import br.com.sica.sicaativosservice.dtos.manutencoes.ManutencaoDto;
 import br.com.sica.sicaativosservice.enums.CategoriaAtivo;
-import br.com.sica.sicaativosservice.enums.TipoAgendaManutencao;
+import br.com.sica.sicaativosservice.models.Ativo;
 import br.com.sica.sicaativosservice.models.DisponibilidadeManutencao;
+import br.com.sica.sicaativosservice.models.Manutencao;
 import br.com.sica.sicaativosservice.repositories.DisponibilidadeManutencaoRepository;
+import br.com.sica.sicaativosservice.repositories.ManutencaoRepository;
 import br.com.sica.sicaativosservice.utils.FormatUtils;
-import org.apache.tomcat.jni.Local;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeComparator;
 import org.joda.time.LocalDate;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ManutencaoService {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(ManutencaoService.class);
+
     @Autowired
     private DisponibilidadeManutencaoRepository disponibilidadeManutencaoRepository;
 
-    public List<ManutencaoDto> listarTodas() {
-        return null;
+    @Autowired
+    private ManutencaoRepository manutencaoRepository;
+
+    public List<ListagemManutencao> listarTodas() {
+        LOGGER.info("Listando todas manutencoes...");
+        return ((List<Manutencao>) manutencaoRepository
+                .findAll())
+                .stream()
+                .map(this::convertManutencaoParaListagemDto)
+                .collect(Collectors.toList());
     }
 
     public ManutencaoDto buscarPorId(Long id) {
-        return null;
+        LOGGER.info("Buscando manutencao {}", id);
+        Manutencao manutencao = manutencaoRepository.findById(id).orElse(null);
+        if (manutencao == null) {
+            return null;
+        }
+        return convertManutencaoParaDto(manutencao);
     }
 
     public ManutencaoDto salvar(ManutencaoDto manutencaoDto) {
-        return  null;
+        LOGGER.info("Salvando manutencao...");
+        ModelMapper modelMapper = new ModelMapper();
+        Manutencao manutencao = modelMapper.map(manutencaoDto, Manutencao.class);
+        System.out.println(manutencao.toString());
+        manutencao = manutencaoRepository.save(manutencao);
+        return convertManutencaoParaDto(manutencao);
     }
 
     public List<String> listarManutencoesDisponiveis(String categoria) {
+        LOGGER.info("Listando proximas datas para manutencao do tipo {}", categoria);
         CategoriaAtivo categoriaEnum = CategoriaAtivo.valueOf(categoria);
 
         List<DisponibilidadeManutencao> disponibilidades = disponibilidadeManutencaoRepository.findByCategoria(categoriaEnum);
@@ -50,6 +77,36 @@ public class ManutencaoService {
         }
 
         return datasComoString;
+    }
+
+    public boolean apagar(Long id) {
+        LOGGER.info("Apagando manutencao {}", id);
+        Manutencao manutencao = manutencaoRepository.findById(id).orElse(null);
+        if (manutencao != null) {
+            manutencaoRepository.delete(manutencao);
+        } else {
+            LOGGER.info("Manutencao {} não encontrada", id);
+        }
+        return manutencao != null;
+    }
+
+    public ManutencaoDto alterar(ManutencaoDto manutencaoDto, Long id) {
+        Manutencao manutencao = manutencaoRepository.findById(id).orElse(null);
+        if (manutencao != null) {
+            LOGGER.info("Alterando manutencao {}", id);
+            ModelMapper modelMapper = new ModelMapper();
+            Manutencao manutencaoAlterada = modelMapper.map(manutencaoDto, Manutencao.class);
+
+            // Voltar dados que nao deve ser editados
+            manutencaoAlterada.setId(manutencao.getId());
+
+            LOGGER.info("Manutencao {} alterada com sucesso", manutencao.getId());
+            manutencao = manutencaoRepository.save(manutencaoAlterada);
+            return modelMapper.map(manutencao, ManutencaoDto.class);
+        } else {
+            LOGGER.info("Manutencao {} não encontrada", id);
+            return null;
+        }
     }
 
     protected DateTime getDiaCorrente() {
@@ -129,6 +186,20 @@ public class ManutencaoService {
             default:
                 throw new RuntimeException("TipoAgenda invalido");
         }
+    }
+
+    private ManutencaoDto convertManutencaoParaDto(Manutencao manutencao) {
+        ModelMapper modelMapper = new ModelMapper();
+        ManutencaoDto manutencaoDto = modelMapper
+                .map(manutencao, ManutencaoDto.class);
+        return manutencaoDto;
+    }
+
+    private ListagemManutencao convertManutencaoParaListagemDto(Manutencao manutencao) {
+        ModelMapper modelMapper = new ModelMapper();
+        ListagemManutencao manutencaoDto = modelMapper
+                .map(manutencao, ListagemManutencao.class);
+        return manutencaoDto;
     }
 
 }

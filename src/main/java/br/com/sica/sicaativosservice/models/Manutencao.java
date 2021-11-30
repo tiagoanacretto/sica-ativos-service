@@ -79,4 +79,16 @@ public class Manutencao implements Serializable {
     public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
+
+    @Override
+    public String toString() {
+        return "Manutencao{" +
+                "id=" + id +
+                ", ativo=" + ativo.getId() +
+                ", dataRealizada=" + dataRealizada +
+                ", agendamento=" + agendamento +
+                ", responsavel='" + responsavel + '\'' +
+                ", observacao='" + observacao + '\'' +
+                '}';
+    }
 }
