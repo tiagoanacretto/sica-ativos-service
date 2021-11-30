@@ -112,7 +112,7 @@ public class AtivoService {
         }
     }
 
-    private DateTime pesquisarUltimaManutencao(Long ativoId) {
+    public DateTime pesquisarUltimaManutencao(Long ativoId) {
         Manutencao manutencao = manutencaoRepository.findTopByAtivoIdOrderByDataRealizadaDesc(ativoId);
         if (manutencao != null) {
             return manutencao.getDataRealizada();
@@ -126,14 +126,6 @@ public class AtivoService {
             return agendamentoManutencaoAtivo.getDataAgendada();
         }
         return null;
-    }
-
-    private CondicaoManutencao verificarCondicaoManutencao(Ativo ativo) {
-        if (ativo.getIntervaloManutencao() != null) {
-            //TODO
-            return CondicaoManutencao.ATRASADA;
-        }
-        return CondicaoManutencao.EM_DIA;
     }
 
     private ListagemAtivo criarListagemAtivo(Ativo ativo) {
