@@ -54,7 +54,7 @@ public class UtilsController {
 
     private void popularAtivoEmDia() {
         Ativo ativo = new Ativo();
-        ativo.setAtivo(true);
+        ativo.setStatusAtivo(true);
         ativo.setCodigo("MAQ-002");
         ativo.setCategoria(CategoriaAtivo.MAQUINA);
         ativo.setDescricao("Caminhão Mineração Caterpillar 796 AC");
@@ -66,7 +66,7 @@ public class UtilsController {
         ativoRepository.save(ativo);
 
         ativo = new Ativo();
-        ativo.setAtivo(true);
+        ativo.setStatusAtivo(true);
         ativo.setCodigo("EQP-002");
         ativo.setCategoria(CategoriaAtivo.EQUIPAMENTO);
         ativo.setDescricao("Detonador de explosivo");
@@ -80,7 +80,7 @@ public class UtilsController {
 
     private void popularAtivoAtrasado() {
         Ativo ativo = new Ativo();
-        ativo.setAtivo(true);
+        ativo.setStatusAtivo(true);
         ativo.setCodigo("MAQ-001");
         ativo.setCategoria(CategoriaAtivo.MAQUINA);
         ativo.setDescricao("Dragline Caterpillar 8200");
@@ -101,7 +101,7 @@ public class UtilsController {
         manutencaoRepository.save(manutencao);
 
         ativo = new Ativo();
-        ativo.setAtivo(true);
+        ativo.setStatusAtivo(true);
         ativo.setCodigo("EQP-001");
         ativo.setCategoria(CategoriaAtivo.EQUIPAMENTO);
         ativo.setDescricao("Peneira vibratória fBC MC-1024");
@@ -116,7 +116,7 @@ public class UtilsController {
         ativoRepository.save(ativo);
 
         ativo = new Ativo();
-        ativo.setAtivo(true);
+        ativo.setStatusAtivo(true);
         ativo.setCodigo("IMV-001");
         ativo.setCategoria(CategoriaAtivo.IMOVEL);
         ativo.setDescricao("Refeitório do campo de extração");

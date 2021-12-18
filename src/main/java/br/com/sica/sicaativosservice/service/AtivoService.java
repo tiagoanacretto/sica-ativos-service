@@ -1,7 +1,7 @@
 package br.com.sica.sicaativosservice.service;
 
 import br.com.sica.sicaativosservice.dtos.FromObject;
-import br.com.sica.sicaativosservice.dtos.ParserFromDto;
+
 import br.com.sica.sicaativosservice.dtos.ativos.AtivoDto;
 import br.com.sica.sicaativosservice.dtos.ativos.ListagemAtivo;
 import br.com.sica.sicaativosservice.enums.CondicaoManutencao;
@@ -13,6 +13,7 @@ import br.com.sica.sicaativosservice.repositories.AgendamentoManutencaoAtivoRepo
 import br.com.sica.sicaativosservice.repositories.AtivoRepository;
 import br.com.sica.sicaativosservice.repositories.ManutencaoRepository;
 import br.com.sica.sicaativosservice.utils.FormatUtils;
+import br.com.sica.sicaativosservice.dtos.ParserFromDto;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -63,8 +64,9 @@ public class AtivoService {
 
     public AtivoDto salvar(AtivoDto ativoDto) {
         Ativo ativo = ParserFromDto.parse(ativoDto, true);
+
         ativo.setDataCadastro(DateTime.now());
-        ativo.setAtivo(true);
+        ativo.setStatusAtivo(true);
         ativo.setStatusManutencao(CondicaoManutencao.EM_DIA);
         ativo = ativoRepository.save(ativo);
         LOGGER.info("Ativo {} criado com sucesso", ativo.getId());
@@ -97,15 +99,11 @@ public class AtivoService {
         Ativo ativoOrigem = ativoRepository.findById(id).orElse(null);
         if (ativoOrigem != null) {
             LOGGER.info("Alterando ativo {}", id);
-            Ativo ativo = ParserFromDto.parse(ativoDto, false);
+            ParserFromDto.parse(ativoOrigem, ativoDto, false);
 
-            // Voltar dados que nao deve ser editados
-            ativo.setId(ativoOrigem.getId());
-            ativo.setDataCadastro(ativoOrigem.getDataCadastro());
-
-            LOGGER.info("Ativo {} alterado com sucesso", ativo.getId());
-            ativo = ativoRepository.save(ativo);
-            return FromObject.from(ativo);
+            LOGGER.info("Ativo {} alterado com sucesso", ativoOrigem.getId());
+            ativoOrigem = ativoRepository.save(ativoOrigem);
+            return FromObject.from(ativoOrigem);
         } else {
             LOGGER.info("Ativo {} não encontrado", id);
             return null;

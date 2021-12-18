@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "parametro_ativo")
@@ -72,5 +73,26 @@ public class ParametroAtivo implements Serializable {
 
     public void setValor(String valor) {
         this.valor = valor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParametroAtivo that = (ParametroAtivo) o;
+        return Objects.equals(id, that.id) && Objects.equals(ativo, that.ativo) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(valor, that.valor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ativo, nome, descricao, valor);
+    }
+
+    @Override
+    public String toString() {
+        return "ParametroAtivo{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 }

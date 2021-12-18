@@ -1,11 +1,8 @@
 package br.com.sica.sicaativosservice.service;
 
-import br.com.sica.sicaativosservice.dtos.FromObject;
-import br.com.sica.sicaativosservice.dtos.ParserFromDto;
 import br.com.sica.sicaativosservice.dtos.manutencoes.ListagemManutencao;
 import br.com.sica.sicaativosservice.dtos.manutencoes.ManutencaoDto;
 import br.com.sica.sicaativosservice.enums.CategoriaAtivo;
-import br.com.sica.sicaativosservice.models.Ativo;
 import br.com.sica.sicaativosservice.models.DisponibilidadeManutencao;
 import br.com.sica.sicaativosservice.models.Manutencao;
 import br.com.sica.sicaativosservice.repositories.DisponibilidadeManutencaoRepository;
@@ -55,7 +52,6 @@ public class ManutencaoService {
         LOGGER.info("Salvando manutencao...");
         ModelMapper modelMapper = new ModelMapper();
         Manutencao manutencao = modelMapper.map(manutencaoDto, Manutencao.class);
-        System.out.println(manutencao.toString());
         manutencao = manutencaoRepository.save(manutencao);
         return convertManutencaoParaDto(manutencao);
     }

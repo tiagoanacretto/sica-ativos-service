@@ -4,9 +4,7 @@ import br.com.sica.sicaativosservice.enums.CondicaoManutencao;
 import br.com.sica.sicaativosservice.models.Ativo;
 import br.com.sica.sicaativosservice.repositories.AtivoRepository;
 import br.com.sica.sicaativosservice.service.AtivoService;
-import org.bouncycastle.cms.jcajce.JcaX509CertSelectorConverter;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ public class ChecadorStatusAtivos {
     @Autowired
     private AtivoService ativoService;
 
-    @Scheduled(fixedDelay = MINUTO)
+    @Scheduled(fixedDelay = SEIS_HORAS)
     public void checarStatusAtivos() {
         LOGGER.info("Iniciando checagem de status de ativos...");
         List<Ativo> ativosEmDia = ativoRepository.findByStatusManutencao(CondicaoManutencao.EM_DIA);

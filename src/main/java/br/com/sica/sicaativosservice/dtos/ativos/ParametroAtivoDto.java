@@ -52,4 +52,5 @@ public class ParametroAtivoDto {
         this.valor = valor;
     }
 
+
 }

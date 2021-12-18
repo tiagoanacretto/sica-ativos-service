@@ -27,7 +27,7 @@ public class AtivoDto {
 
     private List<ParametroAtivoDto> parametros;
 
-    private Boolean ativo;
+    private Boolean statusAtivo;
 
     private String dataCadastro;
 
@@ -103,12 +103,12 @@ public class AtivoDto {
         this.parametros = parametros;
     }
 
-    public Boolean getAtivo() {
-        return ativo;
+    public Boolean getStatusAtivo() {
+        return statusAtivo;
     }
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+    public void setStatusAtivo(Boolean statusAtivo) {
+        this.statusAtivo = statusAtivo;
     }
 
     public String getDataCadastro() {

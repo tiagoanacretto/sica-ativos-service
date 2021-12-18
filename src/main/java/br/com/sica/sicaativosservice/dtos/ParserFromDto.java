@@ -8,6 +8,7 @@ import br.com.sica.sicaativosservice.models.Ativo;
 import br.com.sica.sicaativosservice.models.ParametroAtivo;
 import br.com.sica.sicaativosservice.utils.FormatUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParserFromDto {
@@ -49,9 +50,22 @@ public class ParserFromDto {
         parseAgendamentos(ativoDto.getAgendamentos(), ativo, inclusao);
         ativo.setValorCompra(ativoDto.getValorCompra());
         parseParametros(ativoDto.getParametros(), ativo, inclusao);
-        ativo.setAtivo(ativoDto.getAtivo());
+        ativo.setStatusAtivo(ativoDto.getStatusAtivo());
         ativo.setDataCadastro(FormatUtils.stringToDateTime(ativoDto.getDataCadastro()));
         return ativo;
+    }
+
+    public static void parse(Ativo ativoOrigem, AtivoDto ativoDto, boolean inclusao) {
+        ativoOrigem.setCodigo(ativoDto.getCodigo());
+        ativoOrigem.setDescricao(ativoDto.getDescricao());
+        ativoOrigem.setCategoria(ativoDto.getCategoria());
+        ativoOrigem.setStatusManutencao(ativoDto.getStatusManutencao());
+        ativoOrigem.setIntervaloManutencao(ativoDto.getIntervaloManutencao());
+        parseAgendamentos(ativoDto.getAgendamentos(), ativoOrigem, inclusao);
+        ativoOrigem.setValorCompra(ativoDto.getValorCompra());
+        parseParametros(ativoDto.getParametros(), ativoOrigem, inclusao);
+        ativoOrigem.setStatusAtivo(ativoDto.getStatusAtivo());
+        ativoOrigem.setDataCadastro(FormatUtils.stringToDateTime(ativoDto.getDataCadastro()));
     }
 
     private static void parseAgendamentos(List<AgendamentoManutencaoAtivoDto> agendamentosDto, Ativo ativo, boolean inclusao) {
@@ -62,7 +76,29 @@ public class ParserFromDto {
 
     private static void parseParametros(List<ParametroAtivoDto> parametrosDto, Ativo ativo, boolean inclusao) {
         if (parametrosDto != null) {
-            parametrosDto.parallelStream().forEach(dto -> ativo.addParametros(parse(dto, inclusao)));
+            List<ParametroAtivo> parametros = new ArrayList<>(parametrosDto.size());
+            parametrosDto.parallelStream().forEach(dto -> parametros.add(parse(dto, inclusao)));
+
+            System.out.println("Lista inicial");
+            System.out.println("parametros " + parametros);
+            System.out.println("ativos " + ativo.getParametros());
+            System.out.println("-----");
+
+            ativo.getParametros().retainAll(parametros);
+
+            System.out.println("depois do retain");
+            System.out.println("parametros " + parametros);
+            System.out.println("ativos " + ativo.getParametros());
+            System.out.println("-----");
+
+            parametros.removeAll(ativo.getParametros());
+
+            System.out.println("depois do removeall");
+            System.out.println("parametros " + parametros);
+            System.out.println("ativos " + ativo.getParametros());
+            System.out.println("-----");
+
+            parametros.parallelStream().forEach(param -> ativo.addParametros(param));
         }
     }
 }

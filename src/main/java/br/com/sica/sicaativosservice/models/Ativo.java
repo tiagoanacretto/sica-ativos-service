@@ -60,7 +60,7 @@ public class Ativo implements Serializable {
     @OneToMany(mappedBy = "ativo", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ParametroAtivo> parametros;
 
-    private Boolean ativo = true;
+    private Boolean statusAtivo = true;
 
     @Column(name = "data_cadastro", nullable = false)
     @NotBlank
@@ -154,12 +154,12 @@ public class Ativo implements Serializable {
         parametro.setAtivo(this);
     }
 
-    public Boolean getAtivo() {
-        return ativo;
+    public Boolean getStatusAtivo() {
+        return statusAtivo;
     }
 
-    public void setAtivo(Boolean ativo) {
-        this.ativo = ativo;
+    public void setStatusAtivo(Boolean statusAtivo) {
+        this.statusAtivo = statusAtivo;
     }
 
     public DateTime getDataCadastro() {

@@ -44,7 +44,7 @@ public class FromObject {
         ativoDto.setAgendamentos(fromAgendamentos(ativo.getAgendamentos()));
         ativoDto.setValorCompra(ativo.getValorCompra());
         ativoDto.setParametros(fromParametros(ativo.getParametros()));
-        ativoDto.setAtivo(ativo.getAtivo());
+        ativoDto.setStatusAtivo(ativo.getStatusAtivo());
         ativoDto.setDataCadastro(FormatUtils.dateTimeToString(ativo.getDataCadastro()));
         return ativoDto;
     }
