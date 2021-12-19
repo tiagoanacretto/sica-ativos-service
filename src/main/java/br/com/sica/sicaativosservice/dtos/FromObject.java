@@ -49,7 +49,7 @@ public class FromObject {
         return ativoDto;
     }
 
-    private static List<AgendamentoManutencaoAtivoDto> fromAgendamentos(List<AgendamentoManutencaoAtivo> agendamentos) {
+    public static List<AgendamentoManutencaoAtivoDto> fromAgendamentos(List<AgendamentoManutencaoAtivo> agendamentos) {
         if (agendamentos != null) {
             return agendamentos.parallelStream().map(FromObject::from).collect(Collectors.toList());
         } else {

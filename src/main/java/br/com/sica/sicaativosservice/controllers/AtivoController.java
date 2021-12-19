@@ -1,5 +1,6 @@
 package br.com.sica.sicaativosservice.controllers;
 
+import br.com.sica.sicaativosservice.dtos.ativos.AgendamentoManutencaoAtivoDto;
 import br.com.sica.sicaativosservice.dtos.ativos.AtivoDto;
 import br.com.sica.sicaativosservice.dtos.ativos.ListagemAtivo;
 import br.com.sica.sicaativosservice.service.AtivoService;
@@ -73,5 +74,11 @@ public class AtivoController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{id}/agendamentos")
+    public ResponseEntity<List<AgendamentoManutencaoAtivoDto>> getAgendamentosDoAtivo(@PathVariable Long id) {
+        LOGGER.info("Buscando agendamentos do ativo {}...", id);
+        return new ResponseEntity<>(ativosService.getAgendamentosDoAtivo(id), HttpStatus.OK);
     }
 }

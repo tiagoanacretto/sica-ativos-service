@@ -2,6 +2,7 @@ package br.com.sica.sicaativosservice.service;
 
 import br.com.sica.sicaativosservice.dtos.FromObject;
 
+import br.com.sica.sicaativosservice.dtos.ativos.AgendamentoManutencaoAtivoDto;
 import br.com.sica.sicaativosservice.dtos.ativos.AtivoDto;
 import br.com.sica.sicaativosservice.dtos.ativos.ListagemAtivo;
 import br.com.sica.sicaativosservice.enums.CondicaoManutencao;
@@ -22,7 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AtivoService {
@@ -116,6 +119,18 @@ public class AtivoService {
             return manutencao.getDataRealizada();
         }
         return null;
+    }
+
+    public List<AgendamentoManutencaoAtivoDto> getAgendamentosDoAtivo(Long ativoId) {
+        Ativo ativoOrigem = ativoRepository.findById(ativoId).orElse(null);
+        if (ativoOrigem != null) {
+            return FromObject.fromAgendamentos(
+                    ativoOrigem.getAgendamentos().stream().filter(
+                            agenda -> agenda.getStatus() == StatusAgendamento.AGENDADA)
+                    .collect(Collectors.toList()));
+        } else {
+            return Collections.emptyList();
+        }
     }
 
     private LocalDate pesquisarProximaManutencao(Long ativoId) {
