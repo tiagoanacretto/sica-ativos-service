@@ -70,7 +70,11 @@ public class ParserFromDto {
 
     private static void parseAgendamentos(List<AgendamentoManutencaoAtivoDto> agendamentosDto, Ativo ativo, boolean inclusao) {
         if (agendamentosDto != null) {
-            agendamentosDto.parallelStream().forEach(dto -> ativo.addAgendamento(parse(dto, inclusao)));
+            List<AgendamentoManutencaoAtivo> agendamentos = new ArrayList<>(agendamentosDto.size());
+            agendamentosDto.parallelStream().forEach(dto -> agendamentos.add(parse(dto, inclusao)));
+            ativo.getAgendamentos().retainAll(agendamentos);
+            agendamentos.removeAll(ativo.getAgendamentos());
+            agendamentos.parallelStream().forEach(param -> ativo.addAgendamento(param));
         }
     }
 
@@ -78,26 +82,8 @@ public class ParserFromDto {
         if (parametrosDto != null) {
             List<ParametroAtivo> parametros = new ArrayList<>(parametrosDto.size());
             parametrosDto.parallelStream().forEach(dto -> parametros.add(parse(dto, inclusao)));
-
-            System.out.println("Lista inicial");
-            System.out.println("parametros " + parametros);
-            System.out.println("ativos " + ativo.getParametros());
-            System.out.println("-----");
-
             ativo.getParametros().retainAll(parametros);
-
-            System.out.println("depois do retain");
-            System.out.println("parametros " + parametros);
-            System.out.println("ativos " + ativo.getParametros());
-            System.out.println("-----");
-
             parametros.removeAll(ativo.getParametros());
-
-            System.out.println("depois do removeall");
-            System.out.println("parametros " + parametros);
-            System.out.println("ativos " + ativo.getParametros());
-            System.out.println("-----");
-
             parametros.parallelStream().forEach(param -> ativo.addParametros(param));
         }
     }

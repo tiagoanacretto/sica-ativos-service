@@ -48,7 +48,7 @@ public class Ativo implements Serializable {
     @Enumerated(EnumType.STRING)
     private CondicaoManutencao statusManutencao;
 
-    @OneToMany(mappedBy = "ativo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ativo", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AgendamentoManutencaoAtivo> agendamentos;
 
     @Column(name = "valor_compra")
