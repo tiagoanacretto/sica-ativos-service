@@ -11,6 +11,7 @@ import br.com.sica.sicaativosservice.models.ParametroAtivo;
 import br.com.sica.sicaativosservice.repositories.AtivoRepository;
 import br.com.sica.sicaativosservice.repositories.DisponibilidadeManutencaoRepository;
 import br.com.sica.sicaativosservice.repositories.ManutencaoRepository;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 
+@Hidden
 @RestController
 @RequestMapping("/utils")
 public class UtilsController {

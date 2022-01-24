@@ -24,6 +24,13 @@
         <java.version>11</java.version>
         <sonar.organization>sica-poc</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <springdoc-openapi.version>1.5.2</springdoc-openapi.version>
+        <joda-time.version>2.10.13</joda-time.version>
+        <jadira-usertype.version>6.0.1.GA</jadira-usertype.version>
+        <jackson-datatype-joda.version>2.13.0</jackson-datatype-joda.version>
+        <spring-cloud-openfeign.version>3.0.4</spring-cloud-openfeign.version>
+        <modelmapper.version>2.3.5</modelmapper.version>
+        <log4j-api.version>2.16.0</log4j-api.version>
     </properties>
 
     <dependencies>
@@ -39,12 +46,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.2</version>
+            <version>${springdoc-openapi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,22 +59,22 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>2.10.13</version>
+            <version>${joda-time.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
-            <version>6.0.1.GA</version>
+            <version>${jadira-usertype.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
-            <version>2.13.0</version>
+            <version>${jackson-datatype-joda.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>3.0.4</version>
+            <version>${spring-cloud-openfeign.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -81,17 +83,17 @@
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>2.3.5</version>
+            <version>${modelmapper.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.16.0</version>
+            <version>${log4j-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-to-slf4j</artifactId>
-            <version>2.16.0</version>
+            <version>${log4j-api.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -126,8 +128,8 @@
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>tiagoanacretto/${project.artifactId}:${project.version}</name>
-                            <name>tiagoanacretto/${project.artifactId}</name>
+                            <name>sicapoc.azurecr.io/${project.artifactId}:${project.version}</name>
+                            <name>sicapoc.azurecr.io/${project.artifactId}</name>
                             <build>
                                 <dockerFileDir>${project.basedir}/dockerfile</dockerFileDir>
                             </build>
