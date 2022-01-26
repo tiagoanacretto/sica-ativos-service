@@ -22,6 +22,8 @@ spring:
       jadira:
         usertype:
           autoRegisterUserTypes: true
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 auth:
   url: ${AUTH_URL:http://localhost:8081/auth}
